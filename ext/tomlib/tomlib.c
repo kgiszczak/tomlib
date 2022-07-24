@@ -1,0 +1,278 @@
+#include <stdio.h>
+#include <ruby.h>
+
+#include "toml.h"
+
+VALUE mTomlib;
+VALUE cParserError;
+
+VALUE cDate;
+VALUE cTime;
+
+static VALUE toml_table_key_to_rb_value(const toml_table_t *table, const char *key);
+static VALUE toml_array_index_to_rb_value(const toml_array_t *array, int index);
+
+/**
+ * Convert TOML table (aka hash) to Ruby hash
+ */
+static VALUE toml_table_to_rb_hash(const toml_table_t *table) {
+  VALUE rb_hash = rb_hash_new();
+
+  for (int i = 0; ; i++) {
+    const char *key = toml_key_in(table, i);
+
+    if (!key) break;
+
+    VALUE rb_key = rb_str_new2(key);
+    VALUE rb_value = toml_table_key_to_rb_value(table, key);
+
+    rb_hash_aset(rb_hash, rb_key, rb_value);
+  }
+
+  return rb_hash;
+}
+
+/**
+ * Convert TOML array to Ruby array
+ */
+static VALUE toml_array_to_rb_array(const toml_array_t *array) {
+  int length = toml_array_nelem(array);
+
+  VALUE rb_array = rb_ary_new2(length);
+
+  for (int i = 0; i < length; i++) {
+    VALUE rb_value = toml_array_index_to_rb_value(array, i);
+    rb_ary_push(rb_array, rb_value);
+  }
+
+  return rb_array;
+}
+
+/**
+ * Convert TOML timestamp to Ruby Date/Time/String depending on timestamp format
+ */
+static VALUE toml_timestamp_to_rb_value(const toml_timestamp_t *ts) {
+  if (ts->year && ts->hour) {
+    double second = *ts->second;
+
+    if (ts->millisec) {
+      second += *ts->millisec * 0.001;
+    }
+
+    VALUE rb_time;
+
+    VALUE rb_year = INT2FIX(*ts->year);
+    VALUE rb_month = INT2FIX(*ts->month);
+    VALUE rb_day = INT2FIX(*ts->day);
+    VALUE rb_hour = INT2FIX(*ts->hour);
+    VALUE rb_minute = INT2FIX(*ts->minute);
+    VALUE rb_second = DBL2NUM(second);
+
+    ID id_new = rb_intern("new");
+
+    if (ts->z) {
+      VALUE rb_tz = rb_str_new2(ts->z);
+      rb_time = rb_funcall(
+        cTime,
+        id_new,
+        7,
+        rb_year,
+        rb_month,
+        rb_day,
+        rb_hour,
+        rb_minute,
+        rb_second,
+        rb_tz
+      );
+    } else {
+      rb_time = rb_funcall(
+        cTime,
+        id_new,
+        6,
+        rb_year,
+        rb_month,
+        rb_day,
+        rb_hour,
+        rb_minute,
+        rb_second
+      );
+    }
+
+    return rb_time;
+  }
+
+  if (ts->year && !ts->hour) {
+    VALUE rb_year = INT2FIX(*ts->year);
+    VALUE rb_month = INT2FIX(*ts->month);
+    VALUE rb_day = INT2FIX(*ts->day);
+
+    return rb_funcall(cDate, rb_intern("new"), 3, rb_year, rb_month, rb_day);
+  }
+
+  if (!ts->year && ts->hour) {
+    const char *str;
+
+    int hour = *ts->hour;
+    int minute = *ts->minute;
+    int second = *ts->second;
+
+    if (ts->millisec) {
+      char buf[13];
+      sprintf(buf, "%02d:%02d:%02d.%03d", hour, minute, second, *ts->millisec);
+      str = buf;
+    } else {
+      char buf[9];
+      sprintf(buf, "%02d:%02d:%02d", hour, minute, second);
+      str = buf;
+    }
+
+    return rb_str_new2(str);
+  }
+
+  return Qnil;
+}
+
+/**
+ * Convert TOML table's value to Ruby object
+ */
+static VALUE toml_table_key_to_rb_value(const toml_table_t *table, const char *key) {
+  toml_datum_t datum;
+
+  datum = toml_string_in(table, key);
+
+  if (datum.ok) {
+    VALUE rb_value = rb_str_new2(datum.u.s);
+    free(datum.u.s);
+    return rb_value;
+  }
+
+  datum = toml_int_in(table, key);
+
+  if (datum.ok) {
+    return INT2FIX(datum.u.i);
+  }
+
+  datum = toml_double_in(table, key);
+
+  if (datum.ok) {
+    return DBL2NUM(datum.u.d);
+  }
+
+  datum = toml_bool_in(table, key);
+
+  if (datum.ok) {
+    return datum.u.b ? Qtrue : Qfalse;
+  }
+
+  datum = toml_timestamp_in(table, key);
+
+  if (datum.ok) {
+    VALUE rb_value = toml_timestamp_to_rb_value(datum.u.ts);
+    free(datum.u.ts);
+    return rb_value;
+  }
+
+  toml_table_t *sub_table = toml_table_in(table, key);
+
+  if (sub_table) {
+    return toml_table_to_rb_hash(sub_table);
+  }
+
+  toml_array_t *array = toml_array_in(table, key);
+
+  if (array) {
+    return toml_array_to_rb_array(array);
+  }
+
+  return Qnil;
+}
+
+/**
+ * Convert TOML array element to Ruby object
+ */
+static VALUE toml_array_index_to_rb_value(const toml_array_t *array, int index) {
+  toml_datum_t datum;
+
+  datum = toml_string_at(array, index);
+
+  if (datum.ok) {
+    VALUE rb_value = rb_str_new2(datum.u.s);
+    free(datum.u.s);
+    return rb_value;
+  }
+
+  datum = toml_int_at(array, index);
+
+  if (datum.ok) {
+    return INT2FIX(datum.u.i);
+  }
+
+  datum = toml_double_at(array, index);
+
+  if (datum.ok) {
+    return DBL2NUM(datum.u.d);
+  }
+
+  datum = toml_bool_at(array, index);
+
+  if (datum.ok) {
+    return datum.u.b ? Qtrue : Qfalse;
+  }
+
+  datum = toml_timestamp_at(array, index);
+
+  if (datum.ok) {
+    VALUE rb_value = toml_timestamp_to_rb_value(datum.u.ts);
+    free(datum.u.ts);
+    return rb_value;
+  }
+
+  toml_table_t *table = toml_table_at(array, index);
+
+  if (table) {
+    return toml_table_to_rb_hash(table);
+  }
+
+  toml_array_t *sub_array = toml_array_at(array, index);
+
+  if (sub_array) {
+    return toml_array_to_rb_array(sub_array);
+  }
+
+  return Qnil;
+}
+
+/**
+ * Function exposed to Ruby's world as Tomlib.load(data)
+ */
+static VALUE tomlib_load(VALUE self, VALUE rb_str) {
+  char *str = StringValueCStr(rb_str);
+  char errbuf[200] = "";
+
+  toml_table_t *table = toml_parse(str, errbuf, sizeof(errbuf));
+
+  if (!table) {
+    rb_raise(cParserError, "%s", errbuf);
+  }
+
+  VALUE rb_value = toml_table_to_rb_hash(table);
+
+  toml_free(table);
+
+  return rb_value;
+}
+
+/**
+ * Ruby's extension entry point
+ */
+void Init_tomlib(void) {
+  rb_require("date");
+
+  cDate = rb_const_get(rb_cObject, rb_intern("Date"));
+  cTime = rb_const_get(rb_cObject, rb_intern("Time"));
+
+  mTomlib = rb_define_module("Tomlib");
+  cParserError = rb_define_class_under(mTomlib, "ParseError", rb_eStandardError);
+
+  rb_define_module_function(mTomlib, "load", tomlib_load, 1);
+}
