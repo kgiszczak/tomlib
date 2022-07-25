@@ -3,11 +3,12 @@
 
 #include "toml.h"
 
-VALUE mTomlib;
-VALUE cParserError;
+static ID id_new;
 
-VALUE cDate;
-VALUE cTime;
+static VALUE mTomlib;
+static VALUE cParserError;
+
+static VALUE cDate;
 
 static VALUE toml_table_key_to_rb_value(const toml_table_t *table, const char *key);
 static VALUE toml_array_index_to_rb_value(const toml_array_t *array, int index);
@@ -68,12 +69,10 @@ static VALUE toml_timestamp_to_rb_value(const toml_timestamp_t *ts) {
     VALUE rb_minute = INT2FIX(*ts->minute);
     VALUE rb_second = DBL2NUM(second);
 
-    ID id_new = rb_intern("new");
-
     if (ts->z) {
       VALUE rb_tz = rb_str_new2(ts->z);
       rb_time = rb_funcall(
-        cTime,
+        rb_cTime,
         id_new,
         7,
         rb_year,
@@ -86,7 +85,7 @@ static VALUE toml_timestamp_to_rb_value(const toml_timestamp_t *ts) {
       );
     } else {
       rb_time = rb_funcall(
-        cTime,
+        rb_cTime,
         id_new,
         6,
         rb_year,
@@ -106,7 +105,7 @@ static VALUE toml_timestamp_to_rb_value(const toml_timestamp_t *ts) {
     VALUE rb_month = INT2FIX(*ts->month);
     VALUE rb_day = INT2FIX(*ts->day);
 
-    return rb_funcall(cDate, rb_intern("new"), 3, rb_year, rb_month, rb_day);
+    return rb_funcall(cDate, id_new, 3, rb_year, rb_month, rb_day);
   }
 
   if (!ts->year && ts->hour) {
@@ -266,10 +265,10 @@ static VALUE tomlib_load(VALUE self, VALUE rb_str) {
  * Ruby's extension entry point
  */
 void Init_tomlib(void) {
-  rb_require("date");
+  id_new = rb_intern("new");
 
+  rb_require("date");
   cDate = rb_const_get(rb_cObject, rb_intern("Date"));
-  cTime = rb_const_get(rb_cObject, rb_intern("Time"));
 
   mTomlib = rb_define_module("Tomlib");
   cParserError = rb_define_class_under(mTomlib, "ParseError", rb_eStandardError);
