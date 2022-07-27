@@ -2,3 +2,11 @@ AllCops:
   TargetRubyVersion: 2.7
   SuggestExtensions: false
   NewCops: enable
+Metrics/AbcSize:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
