@@ -148,7 +148,7 @@ static VALUE toml_table_key_to_rb_value(const toml_table_t *table, const char *k
   datum = toml_int_in(table, key);
 
   if (datum.ok) {
-    return INT2FIX(datum.u.i);
+    return LL2NUM(datum.u.i);
   }
 
   datum = toml_double_in(table, key);
