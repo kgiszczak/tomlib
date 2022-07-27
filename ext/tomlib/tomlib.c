@@ -54,10 +54,10 @@ static VALUE toml_array_to_rb_array(const toml_array_t *array) {
  */
 static VALUE toml_timestamp_to_rb_value(const toml_timestamp_t *ts) {
   if (ts->year && ts->hour) {
-    double second = *ts->second;
+    double second = *ts->second * 1000;
 
     if (ts->millisec) {
-      second += *ts->millisec * 0.001;
+      second += *ts->millisec;
     }
 
     VALUE rb_time;
@@ -67,7 +67,7 @@ static VALUE toml_timestamp_to_rb_value(const toml_timestamp_t *ts) {
     VALUE rb_day = INT2FIX(*ts->day);
     VALUE rb_hour = INT2FIX(*ts->hour);
     VALUE rb_minute = INT2FIX(*ts->minute);
-    VALUE rb_second = DBL2NUM(second);
+    VALUE rb_second = rb_rational_raw(DBL2NUM(second), INT2FIX(1000));
 
     if (ts->z) {
       VALUE rb_tz = rb_str_new2(ts->z);
