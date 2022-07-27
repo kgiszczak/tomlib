@@ -24,7 +24,7 @@ static VALUE toml_table_to_rb_hash(const toml_table_t *table) {
 
     if (!key) break;
 
-    VALUE rb_key = rb_str_new2(key);
+    VALUE rb_key = rb_utf8_str_new_cstr(key);
     VALUE rb_value = toml_table_key_to_rb_value(table, key);
 
     rb_hash_aset(rb_hash, rb_key, rb_value);
@@ -140,7 +140,7 @@ static VALUE toml_table_key_to_rb_value(const toml_table_t *table, const char *k
   datum = toml_string_in(table, key);
 
   if (datum.ok) {
-    VALUE rb_value = rb_str_new2(datum.u.s);
+    VALUE rb_value = rb_utf8_str_new_cstr(datum.u.s);
     free(datum.u.s);
     return rb_value;
   }
@@ -195,7 +195,7 @@ static VALUE toml_array_index_to_rb_value(const toml_array_t *array, int index) 
   datum = toml_string_at(array, index);
 
   if (datum.ok) {
-    VALUE rb_value = rb_str_new2(datum.u.s);
+    VALUE rb_value = rb_utf8_str_new_cstr(datum.u.s);
     free(datum.u.s);
     return rb_value;
   }
