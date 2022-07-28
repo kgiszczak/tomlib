@@ -7,6 +7,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    diff-lcs (1.5.0)
+    docile (1.4.0)
     json (2.6.2)
     parallel (1.22.1)
     parser (3.1.2.0)
@@ -17,6 +19,19 @@ GEM
       rake
     regexp_parser (2.5.0)
     rexml (3.2.5)
+    rspec (3.11.0)
+      rspec-core (~> 3.11.0)
+      rspec-expectations (~> 3.11.0)
+      rspec-mocks (~> 3.11.0)
+    rspec-core (3.11.0)
+      rspec-support (~> 3.11.0)
+    rspec-expectations (3.11.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.11.0)
+    rspec-mocks (3.11.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.11.0)
+    rspec-support (3.11.0)
     rubocop (1.31.1)
       json (~> 2.3)
       parallel (~> 1.10)
@@ -30,6 +45,12 @@ GEM
     rubocop-ast (1.18.0)
       parser (>= 3.1.1.0)
     ruby-progressbar (1.11.0)
+    simplecov (0.21.2)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     unicode-display_width (2.2.0)
 
 PLATFORMS
@@ -37,8 +58,10 @@ PLATFORMS
 
 DEPENDENCIES
   rake (~> 13.0)
-  rake-compiler
+  rake-compiler (~> 1.2)
+  rspec (~> 3.11.0)
   rubocop (~> 1.30)
+  simplecov (~> 0.21.2)
   tomlib!
 
 BUNDLED WITH

@@ -53,6 +53,26 @@ static VALUE toml_array_to_rb_array(const toml_array_t *array) {
  * Convert TOML timestamp to Ruby Date/Time/String depending on timestamp format
  */
 static VALUE toml_timestamp_to_rb_value(const toml_timestamp_t *ts) {
+  if (ts->month && (*ts->month < 1 || *ts->month > 12)) {
+    rb_raise(cParserError, "invalid month: %d", *ts->month);
+  }
+
+  if (ts->day && (*ts->day < 1 || *ts->day > 31)) {
+    rb_raise(cParserError, "invalid day: %d", *ts->day);
+  }
+
+  if (ts->hour && (*ts->hour < 0 || *ts->hour > 23)) {
+    rb_raise(cParserError, "invalid hour: %d", *ts->hour);
+  }
+
+  if (ts->minute && (*ts->minute < 0 || *ts->minute > 59)) {
+    rb_raise(cParserError, "invalid minute: %d", *ts->minute);
+  }
+
+  if (ts->second && (*ts->second < 0 || *ts->second > 59)) {
+    rb_raise(cParserError, "invalid second: %d", *ts->second);
+  }
+
   if (ts->year && ts->hour) {
     double second = *ts->second * 1000;
 
@@ -183,7 +203,7 @@ static VALUE toml_table_key_to_rb_value(const toml_table_t *table, const char *k
     return toml_array_to_rb_array(array);
   }
 
-  return Qnil;
+  rb_raise(cParserError, "invalid value");
 }
 
 /**
@@ -238,13 +258,13 @@ static VALUE toml_array_index_to_rb_value(const toml_array_t *array, int index) 
     return toml_array_to_rb_array(sub_array);
   }
 
-  return Qnil;
+  rb_raise(cParserError, "invalid value");
 }
 
 /**
- * Function exposed to Ruby's world as Tomlib.load(data)
+ * Parse TOML string and convert it into Ruby hash
  */
-static VALUE tomlib_load(VALUE self, VALUE rb_str) {
+static VALUE tomlib_load_do(VALUE rb_str) {
   char *str = StringValueCStr(rb_str);
   char errbuf[200] = "";
 
@@ -259,6 +279,22 @@ static VALUE tomlib_load(VALUE self, VALUE rb_str) {
   toml_free(table);
 
   return rb_value;
+}
+
+/**
+ * Rescue from argument errors
+ */
+static VALUE tomlib_load_rescue(VALUE rb_arg, VALUE rb_error) {
+  rb_set_errinfo(Qnil);
+  rb_raise(cParserError, "string contains null byte");
+  return Qnil;
+}
+
+/**
+ * Function exposed to Ruby's world as Tomlib.load(data)
+ */
+static VALUE tomlib_load(VALUE self, VALUE rb_str) {
+  return rb_rescue2(tomlib_load_do, rb_str, tomlib_load_rescue, Qnil, rb_eArgError, 0);
 }
 
 /**

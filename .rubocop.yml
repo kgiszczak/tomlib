@@ -6,7 +6,17 @@ Metrics/AbcSize:
   Enabled: false
 Metrics/CyclomaticComplexity:
   Enabled: false
+Metrics/BlockLength:
+  Enabled: false
 Metrics/MethodLength:
   Enabled: false
 Metrics/PerceivedComplexity:
+  Enabled: false
+Style/BlockComments:
+  Enabled: false
+Style/ConditionalAssignment:
+  Enabled: false
+Style/HashTransformValues:
+  Enabled: false
+Style/NumericLiterals:
   Enabled: false
