@@ -1,6 +1,6 @@
 # Benchmarks
 
-Comparison fo this gem with [Tomlrb](https://github.com/fbernier/tomlrb)
+Comparison of this gem with [Tomlrb](https://github.com/fbernier/tomlrb)
 and [toml-rb](https://github.com/emancu/toml-rb).
 
 It beanchmarks parsing and generating three files:
