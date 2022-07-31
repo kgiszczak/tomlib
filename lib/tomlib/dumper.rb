@@ -4,6 +4,8 @@ require 'bigdecimal'
 require 'date'
 require 'time'
 
+require_relative 'error'
+
 module Tomlib
   # TOML generator
   #
@@ -76,6 +78,8 @@ module Tomlib
     #
     # @api private
     def to_toml_key(key)
+      raise DumpError, "'nil' can't be used as a key" if key.nil?
+
       key = key.to_s
 
       case key_type(key)

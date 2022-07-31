@@ -114,5 +114,11 @@ RSpec.describe Tomlib do
         expect(result).to eq(File.read(toml))
       end
     end
+
+    it 'raises an error when key is a nil' do
+      expect do
+        described_class.dump({ nil => 'foo' })
+      end.to raise_error(Tomlib::DumpError)
+    end
   end
 end
