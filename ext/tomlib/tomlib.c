@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <ruby.h>
 
