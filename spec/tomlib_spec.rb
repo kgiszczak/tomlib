@@ -36,6 +36,8 @@ def cast_value(value)
 end
 
 def test_case_to_hash(data)
+  return nil unless data
+
   if data.is_a?(Array)
     data.map { |v| test_case_to_hash(v) }
   elsif data.key?('type') && data.key?('value')
@@ -89,6 +91,27 @@ RSpec.describe Tomlib do
             described_class.load(File.read(toml))
           end.to raise_error(Tomlib::ParseError)
         end
+      end
+    end
+  end
+
+  describe '.dump' do
+    tests = Dir[File.expand_path('examples/dumper/**/*.toml', File.dirname(__FILE__))]
+
+    tests.each do |toml|
+      it toml do
+        yaml = toml.gsub('.toml', '.yaml')
+        json = toml.gsub('.toml', '.json')
+
+        if File.exist?(yaml)
+          hash = YAML.safe_load(File.read(yaml), permitted_classes: [Date, Time])
+        else
+          hash = test_case_to_hash(JSON.parse(File.read(json)))
+        end
+
+        result = described_class.dump(hash, indent: false)
+
+        expect(result).to eq(File.read(toml))
       end
     end
   end

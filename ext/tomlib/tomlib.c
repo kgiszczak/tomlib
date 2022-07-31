@@ -6,7 +6,12 @@
 static ID id_new;
 
 static VALUE mTomlib;
+static VALUE cDumper;
 static VALUE cParserError;
+
+static VALUE sym_simple;
+static VALUE sym_quoted;
+static VALUE sym_escape;
 
 static VALUE cDate;
 
@@ -298,16 +303,53 @@ static VALUE tomlib_load(VALUE self, VALUE rb_str) {
 }
 
 /**
+ * Function exposed to Ruby's world as Tomlib::Dumper#key_type(str)
+ */
+static VALUE tomlib_key_type(VALUE self, VALUE rb_key) {
+  const long str_len = RSTRING_LEN(rb_key);
+  const char *str = RSTRING_PTR(rb_key);
+
+  if (str_len == 0) return sym_escape;
+
+  for(long i = 0; i < str_len; i++) {
+    const char c = *(str + i);
+
+    if (c == '\n') {
+      return sym_escape;
+    }
+
+    const bool is_upper_alpha = c >= 'A' && c <= 'Z';
+    const bool is_lower_alpha = c >= 'a' && c <= 'z';
+    const bool is_number = c >= '0' && c <= '9';
+    const bool is_dash = c == '-';
+    const bool is_underscore = c == '_';
+
+    if (!(is_upper_alpha || is_lower_alpha || is_number || is_dash || is_underscore)) {
+      return sym_quoted;
+    }
+  }
+
+  return sym_simple;
+}
+
+/**
  * Ruby's extension entry point
  */
 void Init_tomlib(void) {
   id_new = rb_intern("new");
 
+  sym_simple = ID2SYM(rb_intern("simple"));
+  sym_quoted = ID2SYM(rb_intern("quoted"));
+  sym_escape = ID2SYM(rb_intern("escape"));
+
   rb_require("date");
   cDate = rb_const_get(rb_cObject, rb_intern("Date"));
 
   mTomlib = rb_define_module("Tomlib");
-  cParserError = rb_define_class_under(mTomlib, "ParseError", rb_eStandardError);
+  rb_define_singleton_method(mTomlib, "load", tomlib_load, 1);
 
-  rb_define_module_function(mTomlib, "load", tomlib_load, 1);
+  cDumper = rb_define_class_under(mTomlib, "Dumper", rb_cObject);
+  rb_define_private_method(cDumper, "key_type", tomlib_key_type, 1);
+
+  cParserError = rb_define_class_under(mTomlib, "ParseError", rb_eStandardError);
 }

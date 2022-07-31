@@ -1,0 +1,14 @@
+000111 = "leading"
+10e3 = "false float"
+123 = "num"
+34-11 = 23
+alpha = "a"
+one1two2 = "mixed"
+under_score = "___"
+with-dash = "dashed"
+
+[2018_10]
+001 = 1
+
+[a-a-a]
+_ = false

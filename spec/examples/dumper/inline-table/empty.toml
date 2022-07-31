@@ -1,0 +1,22 @@
+[empty1]
+
+[empty2]
+
+[[empty_in_array]]
+not_empty = 1
+
+[[empty_in_array]]
+
+[[empty_in_array2]]
+
+[[empty_in_array2]]
+not_empty = 1
+
+[[many_empty]]
+
+[[many_empty]]
+
+[[many_empty]]
+
+[nested_empty]
+[nested_empty.empty]

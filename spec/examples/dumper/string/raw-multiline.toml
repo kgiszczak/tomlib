@@ -1,0 +1,3 @@
+firstnl = "This string has a ' quote character."
+multiline = "This string\nhas ' a quote character\nand more than\none newline\nin it."
+oneline = "This string has a ' quote character."

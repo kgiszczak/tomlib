@@ -1,0 +1,66 @@
+[a]
+[a.a]
+b = 1
+
+[[arr]]
+[arr.T]
+[arr.T.a]
+b = 1
+
+[arr.t]
+[arr.t.a]
+b = 1
+
+[[arr]]
+[arr.T]
+[arr.T.a]
+b = 2
+
+[arr.t]
+[arr.t.a]
+b = 2
+
+[b]
+[b.a]
+b = 1
+
+[c]
+[c.a]
+b = 1
+
+[d]
+[d.a]
+b = 1
+
+[e]
+[e.a]
+b = 1
+
+[inline]
+[inline.a]
+b = 42
+
+[many]
+[many.dots]
+[many.dots.here]
+[many.dots.here.dot]
+[many.dots.here.dot.dot]
+[many.dots.here.dot.dot.dot]
+[many.dots.here.dot.dot.dot.a]
+[many.dots.here.dot.dot.dot.a.b]
+c = 1
+d = 2
+
+[tbl]
+[tbl.a]
+[tbl.a.b]
+[tbl.a.b.c]
+[tbl.a.b.c.d]
+e = 1
+
+[tbl.x]
+[tbl.x.a]
+[tbl.x.a.b]
+[tbl.x.a.b.c]
+[tbl.x.a.b.c.d]
+e = 1

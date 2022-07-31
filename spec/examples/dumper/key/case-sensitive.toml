@@ -1,0 +1,12 @@
+sectioN = "NN"
+
+[Section]
+M = "latin letter M"
+name = "different section!!"
+"Μ" = "greek capital letter MU"
+"μ" = "greek small letter mu"
+
+[section]
+NAME = "upper"
+Name = "capitalized"
+name = "lower"

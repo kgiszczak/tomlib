@@ -1,0 +1,11 @@
+plain = 1
+"with.dot" = 2
+
+[plain_table]
+plain = 3
+"with.dot" = 4
+
+[table]
+[table.withdot]
+"key.with.dots" = 6
+plain = 5
