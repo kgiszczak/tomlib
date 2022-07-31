@@ -1,0 +1,25 @@
+PATH
+  remote: ..
+  specs:
+    tomlib (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    benchmark-ips (2.10.0)
+    citrus (3.0.2)
+    toml-rb (2.2.0)
+      citrus (~> 3.0, > 3.0)
+    tomlrb (2.0.3)
+
+PLATFORMS
+  x86_64-darwin-20
+
+DEPENDENCIES
+  benchmark-ips
+  toml-rb
+  tomlib!
+  tomlrb
+
+BUNDLED WITH
+   2.3.10

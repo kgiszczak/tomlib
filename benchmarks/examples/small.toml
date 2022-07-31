@@ -1,0 +1,5 @@
+keyString = "John"
+keyInteger = 123
+keyFloat = 3.141592653589793238
+keyTrue = true
+keyFalse = false
