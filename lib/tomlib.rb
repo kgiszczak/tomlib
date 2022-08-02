@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'date'
 require_relative 'tomlib/dumper'
 require_relative 'tomlib/tomlib'
 require_relative 'tomlib/version'

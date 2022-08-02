@@ -340,11 +340,14 @@ void Init_tomlib(void) {
   id_new = rb_intern("new");
 
   sym_simple = ID2SYM(rb_intern("simple"));
+  rb_global_variable(&sym_simple);
   sym_quoted = ID2SYM(rb_intern("quoted"));
+  rb_global_variable(&sym_quoted);
   sym_escape = ID2SYM(rb_intern("escape"));
+  rb_global_variable(&sym_escape);
 
-  rb_require("date");
   cDate = rb_const_get(rb_cObject, rb_intern("Date"));
+  rb_global_variable(&cDate);
 
   mTomlib = rb_define_module("Tomlib");
   rb_define_singleton_method(mTomlib, "load", tomlib_load, 1);
