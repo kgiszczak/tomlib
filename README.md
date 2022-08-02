@@ -1,32 +1,135 @@
 # Tomlib
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/tomlib`. To experiment with that code, run `bin/console` for an interactive prompt.
+Tomlib is a TOML parser and generator for Ruby. It is fast and standards-compliant by relying
+on native [tomlc99](https://github.com/cktan/tomlc99) parser.
 
-TODO: Delete this and the text above, and describe your gem
+Tomlib is TOML v1.0 compliant.
 
 ## Installation
 
-Install the gem and add to the application's Gemfile by executing:
+Tomlib supports Ruby (MRI) 2.7+
 
-    $ bundle add tomlib
+Add this line to your application's Gemfile:
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+```ruby
+gem 'tomlib'
+```
 
-    $ gem install tomlib
+And then execute:
+
+```
+$ bundle install
+```
+
+Or install it yourself as:
+
+```
+$ gem install tomlib
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+To parse a TOML file use:
 
-## Development
+```ruby
+require 'tomlib'
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Tomlib.parse(<<~TOML)
+firstName = "John"
+lastName = "Doe"
+hobbies = [ "Singing", "Dancing" ]
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+[address]
+firstName = "John"
+lastName = "Doe"
+hobbies = [ "Singing", "Dancing" ]
+
+[address]
+city = "London"
+zip = "E1 6AN"
+
+[address.street]
+name = "Oxford Street"
+TOML
+
+# =>
+#
+# {
+#   "firstName" => "John",
+#   "lastName" => "Doe",
+#   "hobbies" => ["Singing", "Dancing"],
+#   "address" => {
+#     "city"=>"London",
+#     "zip"=>"E1 6AN",
+#     "street"=>{ "name"=>"Oxford Street" }
+#   }
+# }
+```
+
+To generate a TOML file from Ruby Hash use:
+
+```ruby
+require 'tomlib'
+
+Tomlib.dump({
+  "firstName" => "John",
+  "lastName" => "Doe",
+  "hobbies" => ["Singing", "Dancing"],
+  "address" => {
+    "city"=>"London",
+    "zip"=>"E1 6AN",
+    "street"=>{ "name"=>"Oxford Street" }
+  }
+})
+
+# =>
+#
+# firstName = "John"
+# lastName = "Doe"
+# hobbies = [ "Singing", "Dancing" ]
+#
+# [address]
+# city = "London"
+# zip = "E1 6AN"
+#
+#   [address.street]
+#   name = "Oxford Street"
+```
+
+If you don't need indentation use:
+
+```ruby
+require 'tomlib'
+
+Tomlib.dump(hash, indent: false)
+
+# =>
+#
+# firstName = "John"
+# lastName = "Doe"
+# hobbies = [ "Singing", "Dancing" ]
+#
+# [address]
+# city = "London"
+# zip = "E1 6AN"
+#
+# [address.street]
+# name = "Oxford Street"
+```
+
+## Performance
+
+`Tomlib` parsing is ~300x faster than `toml-rb` and ~15x faster than `Tomlrb`
+for usual use case (~5KB TOML document size).
+
+Generating TOML document is about 1.7x faster than `toml-rb`.
+
+For full comparison take a look at
+[benchmarks](https://github.com/kgiszczak/tomlib/tree/master/benchmarks)
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/tomlib.
+Bug reports and pull requests are welcome on GitHub at https://github.com/kgiszczak/tomlib.
 
 ## License
 
