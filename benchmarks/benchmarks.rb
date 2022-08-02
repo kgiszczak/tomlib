@@ -4,6 +4,7 @@ require 'bigdecimal'
 
 require 'tomlrb'
 require 'toml-rb'
+require 'perfect_toml'
 require 'tomlib'
 
 examples = {
@@ -24,6 +25,10 @@ examples.each do |name, data|
 
     x.report('toml-rb') do
       TomlRB.parse(data)
+    end
+
+    x.report('perfect_toml') do
+      PerfectTOML.parse(data)
     end
 
     x.report('tomlib') do

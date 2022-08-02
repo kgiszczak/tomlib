@@ -25,9 +25,10 @@ and run benchmarks:
 
 |gem|small.toml|default.toml|big.toml|
 |---|----------|------------|--------|
-|Tomlib|176.838k|6.577k|11.392|
-|Tomlrb|10.697k (16.53x slower)|416.441 (15.79x slower)|1.211 (9.40x slower)
-|toml-rb|810.809 (218.10x slower)|20.683 (318.01x slower)|0.080 (142.09x slower)
+|Tomlib|184.579k|6.484k|11.453|
+|perfect_toml|56.266k (3.28x slower)|2.155k (3.01x)|7.694 (1.49x slower)
+|Tomlrb|10.366k (17.81x slower)|374.509 (17.31x slower)|1.148 (9.98x slower)
+|toml-rb|811.421 (227.48x slower)|20.135 (322.05x slower)|0.077 (148.73x slower)
 
 ### Generating (i/s)
 
