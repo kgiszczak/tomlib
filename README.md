@@ -34,7 +34,7 @@ To parse a TOML document use:
 ```ruby
 require 'tomlib'
 
-Tomlib.parse(<<~TOML)
+Tomlib.load(<<~TOML)
 firstName = "John"
 lastName = "Doe"
 hobbies = [ "Singing", "Dancing" ]
