@@ -40,11 +40,6 @@ lastName = "Doe"
 hobbies = [ "Singing", "Dancing" ]
 
 [address]
-firstName = "John"
-lastName = "Doe"
-hobbies = [ "Singing", "Dancing" ]
-
-[address]
 city = "London"
 zip = "E1 6AN"
 
