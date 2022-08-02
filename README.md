@@ -29,7 +29,7 @@ $ gem install tomlib
 
 ## Usage
 
-To parse a TOML file use:
+To parse a TOML document use:
 
 ```ruby
 require 'tomlib'
@@ -66,7 +66,7 @@ TOML
 # }
 ```
 
-To generate a TOML file from Ruby Hash use:
+To generate a TOML document from Ruby Hash use:
 
 ```ruby
 require 'tomlib'
