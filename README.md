@@ -3,7 +3,11 @@
 Tomlib is a TOML parser and generator for Ruby. It is fast and standards-compliant by relying
 on native [tomlc99](https://github.com/cktan/tomlc99) parser.
 
+## Compliance
+
 Tomlib is TOML v1.0 compliant.
+It passes both [BurntSushi/toml-test](https://github.com/BurntSushi/toml-test) and
+[iarna/toml-spec-tests](https://github.com/iarna/toml-spec-tests).
 
 ## Installation
 

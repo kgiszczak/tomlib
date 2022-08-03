@@ -1,6 +1,17 @@
 # frozen_string_literal: true
 
 require 'simplecov'
+require 'tomlib'
+
+if GC.respond_to?(:verify_compaction_references)
+  # This method was added in Ruby 3.0.0. Calling it this way asks the GC to
+  # move objects around, helping to find object movement bugs.
+  begin
+    GC.verify_compaction_references(double_heap: true, toward: :empty)
+  rescue NotImplementedError
+    # Some platforms don't support compaction
+  end
+end
 
 SimpleCov.start do
   add_filter '/spec/'
@@ -105,16 +116,4 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-end
-
-require 'tomlib'
-
-if GC.respond_to?(:verify_compaction_references)
-  # This method was added in Ruby 3.0.0. Calling it this way asks the GC to
-  # move objects around, helping to find object movement bugs.
-  begin
-    GC.verify_compaction_references(double_heap: true, toward: :empty)
-  rescue NotImplementedError
-    # Some platforms don't support compaction
-  end
 end
