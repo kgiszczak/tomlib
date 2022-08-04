@@ -1,4 +1,4 @@
-## [0.2.0] - [unreleased]
+## [0.2.0] - 2022-08-04
 
 - Refactor Tomlib::Dumper to be a littel faster and generate squashed nested tables
   ```
