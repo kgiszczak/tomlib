@@ -27,7 +27,7 @@ module Tomlib
     # @api private
     NAN = 'nan'.freeze
 
-    def initialize(use_indent = true)
+    def initialize(use_indent: true)
       @use_indent = use_indent
     end
 
@@ -79,11 +79,12 @@ module Tomlib
           indent = @use_indent ? INDENT * indent_level : ''.freeze
 
           value.each do |el|
-            footer << "\n".freeze <<  indent << '[['.freeze << compound_key << "]]\n".freeze
+            footer << "\n".freeze << indent << '[['.freeze << compound_key << "]]\n".freeze
             footer << dump_hash(el, compound_key, indent_level + 1)
           end
         else
-          indent = @use_indent ? INDENT * (indent_level > 0 ? indent_level - 1 : 0) : ''.freeze
+          indent_length = indent_level > 0 ? indent_level - 1 : 0
+          indent = @use_indent ? INDENT * indent_length : ''.freeze
           header << indent << toml_key << ' = '.freeze << to_toml_value(value) << "\n".freeze
         end
       end

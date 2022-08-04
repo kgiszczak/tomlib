@@ -20,3 +20,9 @@ Style/HashTransformValues:
   Enabled: false
 Style/NumericLiterals:
   Enabled: false
+Style/NumericPredicate:
+  Enabled: false
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma

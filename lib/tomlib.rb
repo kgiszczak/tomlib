@@ -42,6 +42,6 @@ module Tomlib
   #
   # @api public
   def self.dump(hash, indent: true)
-    Dumper.new(indent).dump(hash)
+    Dumper.new(use_indent: indent).dump(hash)
   end
 end
