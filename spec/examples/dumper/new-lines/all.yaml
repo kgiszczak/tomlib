@@ -1,0 +1,14 @@
+foo: 'foo'
+bar: 'bar'
+a: {}
+b:
+  foo: 'foo'
+c: {}
+d:
+  - {}
+  - {}
+e:
+  - {}
+f:
+  - foo: 'foo'
+    bar: 'bar'

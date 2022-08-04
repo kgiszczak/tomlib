@@ -5,7 +5,6 @@ plain = 1
 plain = 3
 "with.dot" = 4
 
-[table]
 [table.withdot]
 "key.with.dots" = 6
 plain = 5

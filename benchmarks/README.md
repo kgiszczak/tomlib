@@ -32,9 +32,10 @@ and run benchmarks:
 
 ### Generating (i/s)
 
-Note - Tomlrb gem doesn't support generating TOML documents.
+Note - Tomlrb gem doesn't support generating TOML documents
+and perfect_toml doesn't work under Ruby 3.
 
 |gem|small.toml|default.toml|big.toml|
 |---|----------|------------|--------|
-|Tomlib|137.698k|4.741k|22.785|
-|toml-rb|64.312k (2.14x slower)|2.672k (1.77x slower)|0.129 (175.98x slower)
+|Tomlib|133.456k|5.615k|23.105|
+|toml-rb|65.968k (2.02x slower)|2.695k (2.08x slower)|0.146 (158.59x slower)

@@ -5,7 +5,6 @@
 ["\"quoted\""]
 quote = true
 
-["a.b"]
 ["a.b"."À"]
 
 ["backsp\b\b"]

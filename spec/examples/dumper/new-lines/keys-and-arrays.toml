@@ -1,0 +1,12 @@
+foo = "foo"
+bar = "bar"
+
+[[a]]
+
+[[a]]
+
+[[b]]
+
+[[c]]
+foo = "foo"
+bar = "bar"

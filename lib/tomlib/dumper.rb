@@ -27,17 +27,37 @@ module Tomlib
     # @api private
     NAN = 'nan'.freeze
 
+    def initialize(use_indent = true)
+      @use_indent = use_indent
+    end
+
     # Generate TOML string from ruby Hash
     #
     # @param [Hash] hash
-    # @param [String, nil] base_key
-    # @param [String] indent
-    # @param [true, false] use_indent
     #
     # @return [String]
     #
     # @api private
-    def dump(hash, base_key = nil, indent = '', use_indent: true)
+    def dump(hash)
+      result = dump_hash(hash)
+
+      result[0] = '' if result[0] == "\n"
+
+      result
+    end
+
+    private
+
+    # Generate TOML string from ruby Hash
+    #
+    # @param [Hash] hash
+    # @param [String, nil] base_key
+    # @param [Integer] indent_level
+    #
+    # @return [String]
+    #
+    # @api private
+    def dump_hash(hash, base_key = nil, indent_level = 0)
       header = ''
       footer = ''
 
@@ -45,34 +65,35 @@ module Tomlib
         toml_key = to_toml_key(key)
 
         if value.is_a?(Hash)
+          skip = !value.empty? && value.values.all? { |e| e.is_a?(Hash) }
           compound_key = to_toml_compound_key(base_key, toml_key)
-          next_indent = use_indent && base_key ? indent + INDENT : indent
 
-          footer << "\n".freeze << next_indent << '['.freeze << compound_key << "]\n".freeze
-          footer << dump(value, compound_key, next_indent, use_indent: use_indent)
+          unless skip
+            indent = @use_indent ? INDENT * indent_level : ''.freeze
+            footer << "\n".freeze << indent << '['.freeze << compound_key << "]\n".freeze
+          end
+
+          footer << dump_hash(value, compound_key, skip ? indent_level : indent_level + 1)
         elsif value.is_a?(Array) && value.all? { |e| e.is_a?(Hash) }
           compound_key = to_toml_compound_key(base_key, toml_key)
-          next_indent = use_indent && base_key ? indent + INDENT : indent
+          indent = @use_indent ? INDENT * indent_level : ''.freeze
 
           value.each do |el|
-            footer << "\n".freeze << next_indent << '[['.freeze << compound_key << "]]\n".freeze
-            footer << dump(el, compound_key, next_indent, use_indent: use_indent)
+            footer << "\n".freeze <<  indent << '[['.freeze << compound_key << "]]\n".freeze
+            footer << dump_hash(el, compound_key, indent_level + 1)
           end
         else
+          indent = @use_indent ? INDENT * (indent_level > 0 ? indent_level - 1 : 0) : ''.freeze
           header << indent << toml_key << ' = '.freeze << to_toml_value(value) << "\n".freeze
         end
       end
 
-      footer.gsub!(/\A\n/, ''.freeze) if header.empty?
       header << footer
     end
-
-    private
 
     # Generate TOML key from Hash key
     #
     # @param [String] key
-    # @param [true, false] use_indent
     #
     # @return [String]
     #

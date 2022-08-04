@@ -18,5 +18,4 @@ not_empty = 1
 
 [[many_empty]]
 
-[nested_empty]
 [nested_empty.empty]

@@ -118,10 +118,10 @@ Tomlib.dump(hash, indent: false)
 
 ## Performance
 
-`Tomlib` parsing is ~300x faster than `toml-rb` and ~15x faster than `Tomlrb`
-for usual use case (~5KB TOML document size).
+`Tomlib` parsing is ~300x faster than `toml-rb`, ~15x faster than `Tomlrb`
+and ~3x faster than `perfect_toml` for usual use case (~5KB TOML document size).
 
-Generating TOML document is about 1.7x faster than `toml-rb`.
+Generating TOML document is about 2x faster than `toml-rb`.
 
 For full comparison take a look at
 [benchmarks](https://github.com/kgiszczak/tomlib/tree/master/benchmarks)

@@ -124,5 +124,49 @@ RSpec.describe Tomlib do
         described_class.dump({ nil => 'foo' })
       end.to raise_error(Tomlib::DumpError)
     end
+
+    it 'indents output' do
+      hash = {
+        'foo' => 'foo',
+        'a' => {
+          'foo' => 'foo',
+          'b' => {
+            'foo' => 'foo',
+            'c' => {
+              'foo' => 'foo',
+            },
+          },
+        },
+        'b' => {
+          'c' => [
+            { 'foo' => 'foo' },
+            { 'foo' => 'foo' },
+          ],
+        },
+      }
+
+      result = described_class.dump(hash)
+
+      expect(result).to eq(<<~TOML)
+        foo = "foo"
+
+        [a]
+        foo = "foo"
+
+          [a.b]
+          foo = "foo"
+
+            [a.b.c]
+            foo = "foo"
+
+        [b]
+
+          [[b.c]]
+          foo = "foo"
+
+          [[b.c]]
+          foo = "foo"
+      TOML
+    end
   end
 end

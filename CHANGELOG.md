@@ -1,5 +1,15 @@
 ## [0.2.0] - [unreleased]
 
+- Refactor Tomlib::Dumper to be a littel faster and generate squashed nested tables
+  ```
+  e.g. instead of this:
+  [a]
+  [a.b]
+  [a.b.c]
+
+  the output will be this:
+  [a.b.c]
+  ```
 - Add mention about compliance and passed tests in README.
 - Declare global variables with `rb_global_variable`.
 It may prevent VM from crashing in some cases.

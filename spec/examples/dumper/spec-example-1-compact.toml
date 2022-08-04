@@ -14,7 +14,6 @@ server = "192.168.1.1"
 dob = 1979-05-27T07:32:00.000-08:00
 name = "Lance Uppercut"
 
-[servers]
 [servers.alpha]
 dc = "eqdc10"
 ip = "10.0.0.1"
