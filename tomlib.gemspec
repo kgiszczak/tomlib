@@ -20,7 +20,14 @@ Gem::Specification.new do |spec|
   spec.metadata['changelog_uri'] = 'https://github.com/kgiszczak/tomlib/blob/master/CHANGELOG.md'
   spec.metadata['bug_tracker_uri'] = 'https://github.com/kgiszczak/tomlib/issues'
 
-  spec.files = Dir['CHANGELOG.md', 'LICENSE.txt', 'README.md', 'tomlib.gemspec', 'lib/**/*']
+  spec.files = Dir[
+    'CHANGELOG.md',
+    'LICENSE.txt',
+    'README.md',
+    'tomlib.gemspec',
+    'ext/**/*',
+    'lib/**/*.rb',
+  ]
   spec.require_paths = ['lib']
 
   spec.extensions = ['ext/tomlib/extconf.rb']

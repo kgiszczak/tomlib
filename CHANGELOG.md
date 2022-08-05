@@ -1,3 +1,7 @@
+## [0.3.0] - [unreleased]
+
+- Add ext/* to bundled files
+
 ## [0.2.0] - 2022-08-04
 
 - Refactor Tomlib::Dumper to be a littel faster and generate squashed nested tables
