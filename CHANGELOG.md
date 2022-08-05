@@ -1,4 +1,4 @@
-## [0.3.0] - [unreleased]
+## [0.3.0] - 2022-08-05
 
 - Add ext/* to bundled files
 
