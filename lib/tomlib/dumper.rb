@@ -74,7 +74,7 @@ module Tomlib
           end
 
           footer << dump_hash(value, compound_key, skip ? indent_level : indent_level + 1)
-        elsif value.is_a?(Array) && value.all? { |e| e.is_a?(Hash) }
+        elsif value.is_a?(Array) && !value.empty? && value.all? { |e| e.is_a?(Hash) }
           compound_key = to_toml_compound_key(base_key, toml_key)
           indent = @use_indent ? INDENT * indent_level : ''.freeze
 
@@ -148,7 +148,7 @@ module Tomlib
       when Hash
         "{ #{value.map { |k, v| "#{to_toml_key(k)} = #{to_toml_value(v)}" }.join(', ')} }"
       when Array
-        "[ #{value.map { |e| to_toml_value(e) }.join(', ')} ]"
+        value.empty? ? '[]' : "[ #{value.map { |e| to_toml_value(e) }.join(', ')} ]"
       when nil
         '""'.freeze
       else

@@ -1,3 +1,7 @@
+## [0.4.0] - [unreleased]
+
+- Correctly dump empty arrays
+
 ## [0.3.0] - 2022-08-05
 
 - Add ext/* to bundled files
