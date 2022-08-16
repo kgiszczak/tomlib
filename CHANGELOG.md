@@ -1,8 +1,8 @@
-## [0.5.0] - [unreleased]
+## [0.5.0] - 2022-08-16
 
 - Add support for Ruby 2.6
 
-## [0.4.0] - [2022-08-06]
+## [0.4.0] - 2022-08-06
 
 - Correctly dump empty arrays
 
