@@ -96,7 +96,15 @@ static VALUE toml_timestamp_to_rb_value(const toml_timestamp_t *ts) {
     VALUE rb_second = rb_rational_raw(DBL2NUM(second), INT2FIX(1000));
 
     if (ts->z) {
-      VALUE rb_tz = rb_str_new2(ts->z);
+      VALUE rb_tz;
+
+      // Ruby 2.6 doesn't accept "Z" as a timezone offset
+      if (*ts->z == 'Z' || *ts->z == 'z') {
+        rb_tz = rb_str_new2("+00:00");
+      } else {
+        rb_tz = rb_str_new2(ts->z);
+      }
+
       rb_time = rb_funcall(
         rb_cTime,
         id_new,
