@@ -41,6 +41,8 @@ Note! Tomlrb doesn't support generating TOML documents and perfect_toml crashes 
 |Tomlib |252.027k               |12.469k              |51.616
 |toml-rb|159.683k (1.58x slower)|6.965k (1.79x slower)|0.580 (89.35x slower)
 
+---
+
 With YJIT enabled: ruby 3.2.0 (2022-12-25 revision a528908271) +YJIT [arm64-darwin22]
 
 ### Parsing (i/s)
