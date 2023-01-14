@@ -14,7 +14,7 @@ GEM
     tomlrb (2.0.3)
 
 PLATFORMS
-  x86_64-darwin-20
+  arm64-darwin-22
 
 DEPENDENCIES
   benchmark-ips
@@ -24,4 +24,4 @@ DEPENDENCIES
   tomlrb
 
 BUNDLED WITH
-   2.3.10
+   2.4.3
