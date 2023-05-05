@@ -6,7 +6,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    benchmark-ips (2.10.0)
+    benchmark-ips (2.12.0)
     citrus (3.0.2)
     perfect_toml (0.9.0)
     toml-rb (2.2.0)
@@ -24,4 +24,4 @@ DEPENDENCIES
   tomlrb
 
 BUNDLED WITH
-   2.4.3
+   2.4.12
