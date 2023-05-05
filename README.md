@@ -122,7 +122,7 @@ When parsing documents, `Tomlib` is more than 600x (400x with yjit) faster than 
 23x (17x with yjit) faster than `Tomlrb` and almost 5x (3.5x with yjit)
 faster than `perfect_toml` (~5KB TOML document size).
 
-When generating TOML documents, it is about 1.8x (2.2x with yjit) faster than `toml-rb`.
+When generating TOML documents, it is about 1.5x (1.7x with yjit) faster than `toml-rb`.
 
 For full comparison take a look at
 [benchmarks](https://github.com/kgiszczak/tomlib/tree/master/benchmarks)
