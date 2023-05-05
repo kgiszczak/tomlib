@@ -1,4 +1,6 @@
-## [0.6.0] - [unreleased]
+## [0.6.0] - 2023-05-05
+
+- Correctly escape special characters
 
 ## [0.5.0] - 2022-08-16
 
