@@ -320,7 +320,7 @@ static VALUE tomlib_key_type(VALUE self, VALUE rb_key) {
 
   if (str_len == 0) return sym_escape;
 
-  for(long i = 0; i < str_len; i++) {
+  for (long i = 0; i < str_len; i++) {
     const char c = *(str + i);
 
     if (c == '\n') {

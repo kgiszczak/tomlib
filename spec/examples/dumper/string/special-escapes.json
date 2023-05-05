@@ -1,0 +1,150 @@
+{
+  "1": {
+    "type": "string",
+    "value": "#$"
+  },
+  "2": {
+    "type": "string",
+    "value": "#{"
+  },
+  "3": {
+    "type": "string",
+    "value": "\u0000"
+  },
+  "4": {
+    "type": "string",
+    "value": "\u0001"
+  },
+  "5": {
+    "type": "string",
+    "value": "\u0002"
+  },
+  "6": {
+    "type": "string",
+    "value": "\u0003"
+  },
+  "7": {
+    "type": "string",
+    "value": "\u0004"
+  },
+  "8": {
+    "type": "string",
+    "value": "\u0005"
+  },
+  "9": {
+    "type": "string",
+    "value": "\u0006"
+  },
+  "10": {
+    "type": "string",
+    "value": "\u0007"
+  },
+  "11": {
+    "type": "string",
+    "value": "\u0008"
+  },
+  "12": {
+    "type": "string",
+    "value": "\u0009"
+  },
+  "13": {
+    "type": "string",
+    "value": "\u000A"
+  },
+  "14": {
+    "type": "string",
+    "value": "\u000B"
+  },
+  "15": {
+    "type": "string",
+    "value": "\u000C"
+  },
+  "16": {
+    "type": "string",
+    "value": "\u000D"
+  },
+  "17": {
+    "type": "string",
+    "value": "\u000E"
+  },
+  "18": {
+    "type": "string",
+    "value": "\u000F"
+  },
+  "19": {
+    "type": "string",
+    "value": "\u0010"
+  },
+  "20": {
+    "type": "string",
+    "value": "\u0011"
+  },
+  "21": {
+    "type": "string",
+    "value": "\u0012"
+  },
+  "22": {
+    "type": "string",
+    "value": "\u0013"
+  },
+  "23": {
+    "type": "string",
+    "value": "\u0014"
+  },
+  "24": {
+    "type": "string",
+    "value": "\u0015"
+  },
+  "25": {
+    "type": "string",
+    "value": "\u0016"
+  },
+  "26": {
+    "type": "string",
+    "value": "\u0017"
+  },
+  "27": {
+    "type": "string",
+    "value": "\u0018"
+  },
+  "28": {
+    "type": "string",
+    "value": "\u0019"
+  },
+  "29": {
+    "type": "string",
+    "value": "\u001A"
+  },
+  "30": {
+    "type": "string",
+    "value": "\u001B"
+  },
+  "31": {
+    "type": "string",
+    "value": "\u001C"
+  },
+  "32": {
+    "type": "string",
+    "value": "\u001D"
+  },
+  "33": {
+    "type": "string",
+    "value": "\u001E"
+  },
+  "34": {
+    "type": "string",
+    "value": "\u001F"
+  },
+  "35": {
+    "type": "string",
+    "value": "\u0022"
+  },
+  "36": {
+    "type": "string",
+    "value": "\u005C"
+  },
+  "37": {
+    "type": "string",
+    "value": "\u007F"
+  }
+}

@@ -27,6 +27,22 @@ module Tomlib
     # @api private
     NAN = 'nan'.freeze
 
+    # Regex to match escape chars
+    # @api private
+    ESCAPE_CHARS_REGEX = /[\x00-\x1F\x22\x5C\x7F]/.freeze
+
+    # Escape chars mapping
+    # @api private
+    ESCAPE_CHARS = {
+      "\b" => 'b',
+      "\t" => 't',
+      "\n" => 'n',
+      "\f" => 'f',
+      "\r" => 'r',
+      '"' => '"',
+      '\\' => '\\',
+    }.freeze
+
     def initialize(use_indent: true)
       @use_indent = use_indent
     end
@@ -106,7 +122,7 @@ module Tomlib
 
       case key_type(key)
       when :quoted
-        key.inspect
+        escape_string(key)
       when :escape
         key.dump.gsub('\n', '\\\\\n')
       else
@@ -138,7 +154,7 @@ module Tomlib
     def to_toml_value(value)
       case value
       when String
-        value.inspect
+        escape_string(value)
       when Float, BigDecimal
         to_toml_float(value)
       when Time, DateTime
@@ -169,6 +185,27 @@ module Tomlib
       return NAN if value.nan?
 
       value.to_s
+    end
+
+    # Escapes TOML special characters
+    #
+    # @param [String] str
+    #
+    # @return [String]
+    #
+    # @api private
+    def escape_string(str)
+      str = str.gsub(ESCAPE_CHARS_REGEX) do |chr|
+        c = ESCAPE_CHARS[chr]
+
+        if c
+          '\\' << c
+        else
+          format('\\u%04X', chr.ord)
+        end
+      end
+
+      '"' << str << '"'.freeze
     end
   end
 end
