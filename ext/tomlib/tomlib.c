@@ -187,7 +187,7 @@ static VALUE toml_table_key_to_rb_value(const toml_table_t *table, const char *k
 
   datum = toml_double_in(table, key);
 
-  if (datum.ok) {
+  if (datum.ok || datum.u.d == INFINITY || datum.u.d == -INFINITY) {
     return DBL2NUM(datum.u.d);
   }
 

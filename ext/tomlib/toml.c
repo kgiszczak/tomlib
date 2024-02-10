@@ -2203,7 +2203,7 @@ int toml_rtod_ex(toml_raw_t src, double *ret_, char *buf, int buflen) {
 }
 
 int toml_rtod(toml_raw_t src, double *ret_) {
-  char buf[100];
+  char buf[400];
   return toml_rtod_ex(src, ret_, buf, sizeof(buf));
 }
 
