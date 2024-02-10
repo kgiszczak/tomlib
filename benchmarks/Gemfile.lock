@@ -7,21 +7,26 @@ GEM
   remote: https://rubygems.org/
   specs:
     benchmark-ips (2.12.0)
+    bigdecimal (3.1.6)
     citrus (3.0.2)
     perfect_toml (0.9.0)
+    racc (1.7.3)
     toml-rb (2.2.0)
       citrus (~> 3.0, > 3.0)
     tomlrb (2.0.3)
 
 PLATFORMS
   arm64-darwin-22
+  arm64-darwin-23
 
 DEPENDENCIES
   benchmark-ips
+  bigdecimal
   perfect_toml
+  racc
   toml-rb
   tomlib!
   tomlrb
 
 BUNDLED WITH
-   2.4.12
+   2.5.6
