@@ -3,6 +3,7 @@
 - Update tomlc99 to the latest version
 - Parse very large numbers as Infinity
 - Add support for Ruby 3.3
+- Drop support for Ruby 2.7 and 2.7
 
 ## [0.6.0] - 2023-05-05
 

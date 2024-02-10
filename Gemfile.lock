@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tomlib (0.6.0)
+    tomlib (0.7.0)
 
 GEM
   remote: https://rubygems.org/
