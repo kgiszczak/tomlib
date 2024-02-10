@@ -1,3 +1,7 @@
+## [0.7.0] - 2024-02-10
+
+- Update tomlc99 to the latest version
+
 ## [0.6.0] - 2023-05-05
 
 - Correctly escape special characters
