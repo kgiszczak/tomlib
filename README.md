@@ -11,7 +11,7 @@ It passes both [BurntSushi/toml-test](https://github.com/BurntSushi/toml-test) a
 
 ## Installation
 
-Tomlib supports Ruby (MRI) 2.6+
+Tomlib supports Ruby (MRI) 3.0+
 
 Add this line to your application's Gemfile:
 
