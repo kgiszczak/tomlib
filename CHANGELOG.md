@@ -1,3 +1,7 @@
+## [0.7.2] - [unreleased]
+
+- Remove "double_heap" deprecation warning
+
 ## [0.7.1] - 2024-02-17
 
 - Remove "missing bigdecimal dependency" warning
