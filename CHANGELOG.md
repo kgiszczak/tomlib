@@ -1,3 +1,7 @@
+## [0.7.1] - [unreleased]
+
+- Remove "missing bigdecimal dependency" warning
+
 ## [0.7.0] - 2024-02-10
 
 - Update tomlc99 to the latest version

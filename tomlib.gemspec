@@ -32,5 +32,7 @@ Gem::Specification.new do |spec|
 
   spec.extensions = ['ext/tomlib/extconf.rb']
 
-  spec.required_ruby_version = '>= 2.6.0'
+  spec.add_runtime_dependency 'bigdecimal'
+
+  spec.required_ruby_version = '>= 3.0.0'
 end

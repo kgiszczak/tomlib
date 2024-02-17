@@ -2,11 +2,13 @@ PATH
   remote: .
   specs:
     tomlib (0.7.0)
+      bigdecimal
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    bigdecimal (3.1.6)
     diff-lcs (1.5.1)
     docile (1.4.0)
     json (2.7.1)
