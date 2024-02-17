@@ -1,7 +1,8 @@
 PATH
   remote: ..
   specs:
-    tomlib (0.7.0)
+    tomlib (0.7.1)
+      bigdecimal
 
 GEM
   remote: https://rubygems.org/

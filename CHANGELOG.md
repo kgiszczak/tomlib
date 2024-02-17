@@ -1,4 +1,4 @@
-## [0.7.1] - [unreleased]
+## [0.7.1] - 2024-02-17
 
 - Remove "missing bigdecimal dependency" warning
 
