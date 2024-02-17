@@ -1,4 +1,4 @@
-## [0.7.2] - [unreleased]
+## [0.7.2] - 2024-02-17
 
 - Remove "double_heap" deprecation warning
 
