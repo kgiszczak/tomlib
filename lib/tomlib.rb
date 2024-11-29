@@ -3,7 +3,7 @@
 require 'date'
 
 require_relative 'tomlib/dumper'
-require_relative 'tomlib/tomlib'
+require 'tomlib/tomlib'
 require_relative 'tomlib/version'
 
 # Main library namespace
