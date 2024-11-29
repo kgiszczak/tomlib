@@ -1,3 +1,7 @@
+## [0.7.3] - [unreleased]
+
+- [Robert Schulze] Fix loading the C extension on system that don't copy it into the gem install directory
+
 ## [0.7.2] - 2024-02-17
 
 - Remove "double_heap" deprecation warning
