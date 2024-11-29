@@ -1,4 +1,4 @@
-## [0.7.3] - [unreleased]
+## [0.7.3] - 2024-11-29
 
 - [Robert Schulze] Fix loading the C extension on system that don't copy it into the gem install directory
 
