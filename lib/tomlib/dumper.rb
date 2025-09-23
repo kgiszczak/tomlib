@@ -155,6 +155,8 @@ module Tomlib
       case value
       when String
         escape_string(value)
+      when Symbol
+        escape_string(value.to_s)
       when Float, BigDecimal
         to_toml_float(value)
       when Time, DateTime

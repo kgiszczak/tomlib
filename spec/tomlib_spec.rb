@@ -108,7 +108,7 @@ RSpec.describe Tomlib do
         json = toml.gsub('.toml', '.json')
 
         if File.exist?(yaml)
-          hash = YAML.safe_load(File.read(yaml), permitted_classes: [Date, Time])
+          hash = YAML.safe_load(File.read(yaml), permitted_classes: [Date, Time, Symbol])
         else
           hash = test_case_to_hash(JSON.parse(File.read(json)))
         end
